@@ -1,5 +1,5 @@
 # doozer
-![Doozer](./misc/Doozer_256.png)
+![Doozer](./misc/Doozer_128.png)
 
 A minimalistic framework that let you create any Java objects with a fluent and readable syntax.
 
@@ -22,7 +22,7 @@ final Note note = new Note();
 note.setMessage("Call her back!");
 person.addNote(note);
 ```
-### Create a Person with using doozer
+### Create a Person using doozer
 
 ```Java
 final Person person = makeA(Person::new,
