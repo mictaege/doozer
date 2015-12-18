@@ -33,8 +33,7 @@ final Person person = makeA(Person::new,
 				a -> a.with(town, "Frankfurt"),
 				a -> a.with(country, "DE"))),
 		p -> p.with(notes, asList(makeA(Note::new,
-				n -> n.with(message, "Call her back!")
-		)))
+				n -> n.with(message, "Call her back!"))))
 );
 ```
 
@@ -42,7 +41,7 @@ final Person person = makeA(Person::new,
 
 Creating and dealing with deeply nested object trees could be a mess, especially in testing scenarios. For Unit testing we will use Mocking frameworks to get rid of object dependencies and to take control over the objects behavior. Unfortunately there are testing scenarios like integration and acceptance tests, where we have to deal with real objects trees.
 
-In such situations Test Data Builders are a good approach to make the code more readable and to reduce duplications. The downside of Test Data Builders is that we have to write and maintain additional code.
+In such situations Test Data Builders are a good approach to make the code more readable and to reduce duplications. The downside of Test Data Builders is that we have to write and maintain additional code such as builder classes or factory methods.
 
 To make life more easy Nat Pryce invented a tiny framework called [make-it-easy](https://github.com/npryce/make-it-easy). Make-it-easy is a great way to write Test Data Builders with much more less duplications and boilerplate code.
 
@@ -69,7 +68,7 @@ dependencies {
 ```
 
 ### Simple example
-Given a PoJo _Person_ ...
+Given a POJO _Person_ ...
 ```Java
 public class Person {
 	private String firstName;
@@ -99,7 +98,7 @@ final Person person = makeA(Person::new,
 ```
 **Note:** With _doozer_ there is no need for additional boilerplate code such as extra builder classes or factory methods. Apart from the enum that provides the meta information about the instance fields there is nothing else to do.
 
-Furthermore this enum could not only be used with _doozer_ but could also serve meta information in various other contexts, e.g. it could be used as keys for translations stored in a property file or it could be used as property-id's in UI frameworks such as Vaadin.
+Furthermore this enum could not only be used with _doozer_ but could also serve meta information in various other contexts, e.g. it's constants could be used as keys for translations stored in a property file or could be used as property-id's in UI frameworks such as Vaadin.
 
 ## Advanced examples
 
@@ -199,7 +198,7 @@ _apply()_ comes in two flavours:
 
 At the first glance you may like _doozer_ because it helps you to avoid writing bothersome boilerplate code. But the real benefit of _doozer_ is that it will help you to become extraordinary flexible, without the least need to weaken your objects API.
 
-Let's have a look at the following example
+Let's have a look at the following example:
 ```Java
 public final class StrongPersonality {
 

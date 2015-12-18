@@ -50,8 +50,7 @@ public class ExamplesSpec {
 						a -> a.with(town, "Frankfurt"),
 						a -> a.with(country, "DE"))),
 				p -> p.with(notes, asList(makeA(Note::new,
-						n -> n.with(message, "Call her back!")
-					)))
+						n -> n.with(message, "Call her back!"))))
 				);
 
 		assertThat(person.getId(), is("4711"));
