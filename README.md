@@ -180,7 +180,7 @@ final Person mikesSon = makeFrom(personTemplate,
 **Solution:** Define a lambda as a building strategy, use the lambda as a template for building similar objects.
 
 ### Using the objects accesable API
-Sometime is more useful to call the objects accesable API instead of manipulating the objects instance fields directly. This might be the case if we want to use the functionalty of methods that perform complex calculations, such as initializer methods.
+Sometimes it's more useful to call the objects accesable API instead of manipulating the objects instance fields directly. This might be the case if we want to use the functionalty of methods that perform more complex calculations, such as initializer methods.
 ```Java
 final Person person = makeA(Person::new,
 				p -> p.apply(Person::setFirstName, "Sarah"),
