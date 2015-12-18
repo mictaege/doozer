@@ -34,7 +34,7 @@ But things are going further and as [Lee Levett noticed in his blog](https://lee
 
 Based on the ideas of Nat Pryce and Lee Levett _doozer_ is putting things together and let you write Test Data Builders
 - with almost no need for additional boilerplate code
-- with the ability to take full control over the objects state - even for immutable objects - without weaken the objects API
+- with the ability to take full control over the objects state - even for immutable fields and objects - without weaken the objects API
 - with the possibility to reuse one building strategy as a prototype for a variety of similar objects
 
 ## How it works
@@ -61,7 +61,7 @@ public class Person {
 	//getter and setter
 }
 ```
-... we have to extend the _Person_ class with meta information about it's instance fields by using an enumeration that implements _DeclaredField_. Only restriction: The names of the enum constants has to be equal - case sensitve - with the instance fields names of the class ...
+... we have to extend the _Person_ class with meta information about it's instance fields by using an enumeration that implements _DeclaredField_. Only restriction: The names of the enum constants has to be equal - case sensitve - with the instance field names of the class ...
 ```Java
 public class Person {
 	public enum Fields implements DeclaredField<Person> {
@@ -72,7 +72,7 @@ public class Person {
 	//getter and setter
 }
 ```
-... That's it!!!
+... and that's it!!!
 
 Now we can build _Person_ objects using _doozer_:
 ```Java
@@ -81,6 +81,7 @@ final Person person = makeA(Person::new,
 				p -> p.with(lastName, "Klein")
 				);
 ```
+**Note:** With _doozer_ there is no need for additional boilerplate code such as extra builder classes or factory methods. Apart from the enum that provides the meta information about the instance fields there is nothing else to do. Furthermore this enum could not only be used with _doozer_ but could also server meta information in various other contexts, e.g. it could be used as keys for translations stored in a property file or it could be used as property-id's in UI frameworks such as Vaadin.
 
 ## Advanced examples
 
@@ -101,7 +102,7 @@ final Person person = makeA(Person::new,
 					)))
 				);
 ```
-**Solution:** Use nested calls of _makeA()_. An indention of the building statements according to the object tree will improve readablity.
+**Solution:** Use nested calls of _makeA()_. Hint: an indention of the building statements according to the object tree will improve readablity.
 
 ### Building objects that has no default constructor
 ```Java
@@ -130,7 +131,7 @@ final Person person = makeA(Person::new,
 				p -> p.with(firstName, "Sarah")//Person.Fields.firstName
 				);
 ```
-**Solution:** There is no difference in dealing with inherited fields as long as the meta-information is available.
+**Solution:** There is no difference in dealing with inherited fields as long as the meta-information is available, either in the super-class itself or elsewhere.
 
 ### Use one building strategy for a variety of similar objects
 ```Java
@@ -161,13 +162,88 @@ final Person mikesSon = makeFrom(personTemplate,
 **Solution:** Define a lambda as a building strategy, use the lambda as a template for building similar objects.
 
 ### Using the objects accesable API
-Sometime is expedient to call the objects accesable API instead of manipulating the objects instance fields directly. This might be the case if we want to use the functionalty of methods that perform complex calculations.
+Sometime is more useful to call the objects accesable API instead of manipulating the objects instance fields directly. This might be the case if we want to use the functionalty of methods that perform complex calculations, such as initializer methods.
 ```Java
 final Person person = makeA(Person::new,
 				p -> p.apply(Person::setFirstName, "Sarah"),
 				p -> p.apply().setLastName("Klein")
 		);
 ```
-**Solution:** Use _apply()_ instead of _with()_. _apply()_ comes in two flavours:
+**Solution:** Use _apply()_ instead of _with()_.
+
+_apply()_ comes in two flavours:
 - for methods that are taking a single parameter - e.g. setters - you can pass a method-references together with a value to _apply()_
-- or you can get access to the builded object itself and then you can call every method of it's accesable API.
+- or you can get access to the builded object itself which allows yout to call every method of it's accesable API.
+
+## Further thoughts
+
+At the first glance you may like _doozer_ because it helps you to avoid writing bothersome boilerplate code. But the real benefit of _doozer_ is that it will help you to become extraordinary flexible, without the least need to weaken your objects API.
+
+Let's have a look at the following example
+```Java
+public final class StrongPersonality {
+
+	public enum Fields implements DeclaredField<StrongPersonality> {
+		id, firstName, lastName, age;
+	}
+
+	private final String id;
+	private final String firstName;
+	private final String lastName;
+	private int age;
+
+	public StrongPersonality(final String firstName, final String lastName) {
+		super();
+		Validate.notEmpty(firstName);
+		Validate.notEmpty(lastName);
+		this.id = UUID.randomUUID().toString();
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(final int age) {
+		Validate.inclusiveBetween(0, 140, age);
+		this.age = age;
+	}
+}
+```
+In the meaning of the _fail early_ principle the class _StrongPersonality_ assures the constraints of it's fields:
+- _id_ is immutable and calculated during object instantiation
+- _firstName_ and _lastName_ are immutable and could not be empty
+- _age_ is mutable but has to be in a range between _0_ and _140_
+
+It's no problem to create a valid instance of _StrongPersonality_ like this:
+```Java
+final StrongPersonality personality = new StrongPersonality("David", "Wrigley");
+personality.setAge(33);
+```
+... but what should you do if you need an invalid instance of _StrongPersonality_ for testing the correct behavior of a validation or persistance service?
+
+Well, using _doozer_ in a testing scenario allows you to create an instance of _StrongPersonality_ that is completely invalid:
+```Java
+final StrongPersonality personality = makeA(() -> new StrongPersonality("X", "Y"),
+				p -> p.with(id, null),
+				p -> p.with(firstName, ""),
+				p -> p.with(lastName, null),
+				p -> p.with(age, -5)
+				);
+```
+## By the way, what does _doozer_ mean?
+
+[... Doozers are tiny, green creatures, who love to build delicious constructions all day long](https://www.youtube.com/watch?v=H7AthbqkW68)

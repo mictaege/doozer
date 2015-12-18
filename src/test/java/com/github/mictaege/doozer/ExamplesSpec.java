@@ -17,6 +17,7 @@ import static com.github.mictaege.doozer.Subject.Fields.notes;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.function.Supplier;
@@ -131,6 +132,21 @@ public class ExamplesSpec {
 		assertThat(person.getAddress().getCountry(), is("DE"));
 		assertThat(person.getNotes().stream().anyMatch(m -> m.getMessage().equals("Call her back!")), is(true));
 
+	}
+
+	@Test
+	public void shouldMakeAnInvalidStrongPersonality() {
+		final StrongPersonality personality = makeA(() -> new StrongPersonality("X", "Y"),
+				p -> p.with(StrongPersonality.Fields.id, null),
+				p -> p.with(StrongPersonality.Fields.firstName, ""),
+				p -> p.with(StrongPersonality.Fields.lastName, null),
+				p -> p.with(StrongPersonality.Fields.age, -5)
+				);
+
+		assertThat(personality.getId(), is(nullValue()));
+		assertThat(personality.getFirstName(), is(""));
+		assertThat(personality.getLastName(), is(nullValue()));
+		assertThat(personality.getAge(), is(-5));
 	}
 
 }
