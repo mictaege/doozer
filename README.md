@@ -1,6 +1,22 @@
 ![Doozer-Logo](./misc/Doozer_256.png)
 # doozer
 
+- [doozer](#doozer)
+	- [First glance](#first-glance)
+	- [Overview](#overview)
+	- [How it works](#how-it-works)
+		- [Installation](#installation)
+		- [Simple example](#simple-example)
+	- [Advanced examples](#advanced-examples)
+		- [Building object trees](#building-object-trees)
+		- [Building objects that has no default constructor](#building-objects-that-has-no-default-constructor)
+		- [Modify immutable fields of an object](#modify-immutable-fields-of-an-object)
+		- [Modify inherited fields of an object](#modify-inherited-fields-of-an-object)
+		- [Use one building strategy for a variety of similar objects](#use-one-building-strategy-for-a-variety-of-similar-objects)
+		- [Using the objects accesable API](#using-the-objects-accesable-api)
+	- [Further thoughts](#further-thoughts)
+	- [By the way, what does _doozer_ mean?](#by-the-way-what-does-doozer-mean)
+
 A minimalistic framework that let you create any Java objects with a fluent and readable syntax. Helpful especially in integration and acceptance test scenarios for building complex object trees.
 
 ## First glance
