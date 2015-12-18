@@ -233,7 +233,7 @@ It's no problem to create a valid instance of _StrongPersonality_ like this:
 final StrongPersonality personality = new StrongPersonality("David", "Wrigley");
 personality.setAge(33);
 ```
-... but what should you do if you need an invalid instance of _StrongPersonality_ for testing the correct behavior of a validation or persistance service?
+... but what should you do if you need an invalid instance of _StrongPersonality_ for testing the correct behavior of a validation or persistence service?
 
 Well, using _doozer_ in a testing scenario allows you to create an instance of _StrongPersonality_ that is completely invalid:
 ```Java
@@ -246,4 +246,4 @@ final StrongPersonality personality = makeA(() -> new StrongPersonality("X", "Y"
 ```
 ## By the way, what does _doozer_ mean?
 
-[... Doozers are tiny, green creatures, who love to build delicious constructions all day long](https://www.youtube.com/watch?v=H7AthbqkW68)
+[... Doozers are tiny, green creatures, who love to build delicious constructions all day long ...](https://www.youtube.com/watch?v=H7AthbqkW68)
