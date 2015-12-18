@@ -98,6 +98,7 @@ final Person person = makeA(Person::new,
 				);
 ```
 **Note:** With _doozer_ there is no need for additional boilerplate code such as extra builder classes or factory methods. Apart from the enum that provides the meta information about the instance fields there is nothing else to do.
+
 Furthermore this enum could not only be used with _doozer_ but could also serve meta information in various other contexts, e.g. it could be used as keys for translations stored in a property file or it could be used as property-id's in UI frameworks such as Vaadin.
 
 ## Advanced examples
@@ -120,6 +121,7 @@ final Person person = makeA(Person::new,
 				);
 ```
 **Solution:** Use nested calls of _makeA()_.
+
 Hint: an indention of the building statements according to the object tree will improve readablity.
 
 ### Building objects that has no default constructor
