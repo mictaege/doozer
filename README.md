@@ -158,7 +158,7 @@ final Person mikesSon = makeFrom(personTemplate,
 				p -> p.but(age, 5)
 		);
 ```
-**Solution:** Define a lambda as a building strategy, use the lambda as template for building similar object.
+**Solution:** Define a lambda as a building strategy, use the lambda as a template for building similar objects.
 
 ### Using the objects accesable API
 Sometime is expedient to call the objects accesable API instead of manipulating the objects instance fields directly. This might be the case if we want to use the functionalty of methods that perform complex calculations.
@@ -168,4 +168,6 @@ final Person person = makeA(Person::new,
 				p -> p.apply().setLastName("Klein")
 		);
 ```
-**Solution:** Use _apply()_ instead of _with()_. _apply()_ comes in two flavours: for methods that takes a single parameter - e.g. setters - you can pass a method-references together with a value to _apply()_, or you can get access to the builded object itself and then you can call every method of it's accesable API. 
+**Solution:** Use _apply()_ instead of _with()_. _apply()_ comes in two flavours:
+- for methods that are taking a single parameter - e.g. setters - you can pass a method-references together with a value to _apply()_
+- or you can get access to the builded object itself and then you can call every method of it's accesable API.
