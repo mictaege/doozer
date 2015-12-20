@@ -1,10 +1,10 @@
-group 'com.github.mictaege'
-archivesBaseName = project.name
-version '1.0'
-
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'signing'
+
+group 'com.github.mictaege'
+archivesBaseName = project.name
+version '1.0'
 
 sourceCompatibility = 1.8
 
@@ -66,7 +66,7 @@ uploadArchives {
                 developers {
                     developers {
                         id 'mictaege'
-                        name 'Michael Täge'
+                        name 'Michael Taege'
                     }
                 }
             }
