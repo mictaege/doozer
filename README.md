@@ -56,6 +56,8 @@ Based on the ideas of Nat Pryce and Lee Levett _doozer_ is putting things togeth
 
 ### Installation
 
+**Comming soon...***
+
 **Maven**
 ```Xml
 <dependency>
@@ -194,7 +196,7 @@ final Person person = makeA(Person::new,
 **Solution:** Use _apply()_ instead of _with()_.
 
 _apply()_ comes in two flavours:
-- for methods that are taking a single parameter - e.g. setters - you can pass a method-references together with a value to _apply()_
+- for methods that are taking a single parameter - e.g. setters - you can pass a method-reference together with a value to _apply()_
 - or you can get access to the builded object itself which allows yout to call every method of it's accesable API.
 
 ## Further thoughts

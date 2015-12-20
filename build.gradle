@@ -64,7 +64,7 @@ uploadArchives {
                     }
                 }
                 developers {
-                    developers {
+                    developer {
                         id 'mictaege'
                         name 'Michael Taege'
                     }
