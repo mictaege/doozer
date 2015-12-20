@@ -58,12 +58,16 @@ Based on the ideas of Nat Pryce and Lee Levett _doozer_ is putting things togeth
 
 **Maven**
 ```Xml
-<todo/>
+<dependency>
+	<groupId>com.github.mictaege</groupId>
+    <artifactId>doozer</artifactId>
+	<version>1.0</version>
+</dependency>
 ```
 **Gradle**
 ```
 dependencies {
-    testCompile 'todo'
+    compile 'com.github.mictaege:doozer:1.0'
 }
 ```
 
