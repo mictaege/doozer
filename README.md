@@ -1,6 +1,8 @@
 ![Doozer-Logo](./misc/Doozer_256.png)
 # doozer
 
+[![Build Status](https://travis-ci.org/mictaege/doozer.svg?branch=master)](https://travis-ci.org/mictaege/doozer)
+
 - [doozer](#doozer)
 	- [First glance](#first-glance)
 	- [Overview](#overview)
@@ -56,7 +58,7 @@ Based on the ideas of Nat Pryce and Lee Levett _doozer_ is putting things togeth
 
 ### Installation
 
-**Comming soon...***
+From **Maven Central** with the following artifact coordinates
 
 **Maven**
 ```Xml
