@@ -63,15 +63,15 @@ From **Maven Central** with the following artifact coordinates
 **Maven**
 ```Xml
 <dependency>
-	<groupId>com.github.mictaege</groupId>
+    <groupId>com.github.mictaege</groupId>
     <artifactId>doozer</artifactId>
-	<version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 **Gradle**
 ```
 dependencies {
-    compile 'com.github.mictaege:doozer:1.0'
+    compile 'com.github.mictaege:doozer:1.1'
 }
 ```
 
