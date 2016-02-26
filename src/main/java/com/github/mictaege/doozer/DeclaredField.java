@@ -7,6 +7,6 @@ package com.github.mictaege.doozer;
 @SuppressWarnings("squid:S2326")
 public interface DeclaredField<T> {
 
-	String name();
+    String name();
 
 }
