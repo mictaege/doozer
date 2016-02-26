@@ -5,7 +5,7 @@ public class Address {
 
     public enum Fields implements DeclaredField<Address> {
         street, zip, town, country
-	}
+    }
 
     private String street;
     private String zip;

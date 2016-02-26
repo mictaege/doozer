@@ -9,7 +9,7 @@ public final class StrongPersonality {
 
     public enum Fields implements DeclaredField<StrongPersonality> {
         id, firstName, lastName, age
-	}
+    }
 
     private final String id;
     private final String firstName;

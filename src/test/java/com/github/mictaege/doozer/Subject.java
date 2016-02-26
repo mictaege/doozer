@@ -11,7 +11,7 @@ public abstract class Subject {
 
     public enum Fields implements DeclaredField<Subject> {
         id, notes
-	}
+    }
 
     private final String id;
     private final List<Note> notes;

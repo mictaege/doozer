@@ -5,7 +5,7 @@ public class Person extends Subject {
 
     public enum Fields implements DeclaredField<Person> {
         firstName, lastName, nickName, age, address
-	}
+    }
 
     private String firstName;
     private String lastName;

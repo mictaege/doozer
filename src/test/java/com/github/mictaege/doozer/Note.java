@@ -7,7 +7,7 @@ public class Note {
 
     public enum Fields implements DeclaredField<Note> {
         creationDate, message
-	}
+    }
 
     private final Date creationDate;
     private String message;
