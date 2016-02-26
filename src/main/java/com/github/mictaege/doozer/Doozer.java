@@ -1,15 +1,20 @@
 package com.github.mictaege.doozer;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 /**  It's only meaning of life is to build all kinds of objects as sweet as sugar. */
 public final class Doozer {
+
+	/** hidden constructor */
+	private Doozer() {
+		super();
+	}
 
 	/**
 	 * @param objSupplier Either a lambda or a constructor reference to create the object

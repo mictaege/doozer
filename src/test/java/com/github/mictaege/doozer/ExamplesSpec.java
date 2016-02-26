@@ -1,28 +1,19 @@
 package com.github.mictaege.doozer;
 
-import static com.github.mictaege.doozer.Address.Fields.country;
-import static com.github.mictaege.doozer.Address.Fields.street;
-import static com.github.mictaege.doozer.Address.Fields.town;
-import static com.github.mictaege.doozer.Address.Fields.zip;
-import static com.github.mictaege.doozer.Doozer.makeA;
-import static com.github.mictaege.doozer.Doozer.makeFrom;
-import static com.github.mictaege.doozer.Note.Fields.message;
-import static com.github.mictaege.doozer.Person.Fields.address;
-import static com.github.mictaege.doozer.Person.Fields.age;
-import static com.github.mictaege.doozer.Person.Fields.firstName;
-import static com.github.mictaege.doozer.Person.Fields.lastName;
-import static com.github.mictaege.doozer.Person.Fields.nickName;
-import static com.github.mictaege.doozer.Subject.Fields.id;
-import static com.github.mictaege.doozer.Subject.Fields.notes;
-import static java.util.Arrays.asList;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
 
 import java.util.function.Supplier;
 
-import org.junit.Test;
+import static com.github.mictaege.doozer.Address.Fields.*;
+import static com.github.mictaege.doozer.Doozer.makeA;
+import static com.github.mictaege.doozer.Doozer.makeFrom;
+import static com.github.mictaege.doozer.Note.Fields.message;
+import static com.github.mictaege.doozer.Person.Fields.*;
+import static com.github.mictaege.doozer.Subject.Fields.id;
+import static com.github.mictaege.doozer.Subject.Fields.notes;
+import static java.util.Arrays.asList;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.assertThat;
 
 
 /** */
@@ -62,7 +53,7 @@ public class ExamplesSpec {
 		assertThat(person.getAddress().getZip(), is("49432"));
 		assertThat(person.getAddress().getTown(), is("Frankfurt"));
 		assertThat(person.getAddress().getCountry(), is("DE"));
-		assertThat(person.getNotes().stream().anyMatch(m -> m.getMessage().equals("Call her back!")), is(true));
+		assertThat(person.getNotes().stream().anyMatch(m -> "Call her back!".equals(m.getMessage())), is(true));
 	}
 
 	@Test
@@ -129,8 +120,7 @@ public class ExamplesSpec {
 		assertThat(person.getAddress().getZip(), is("49432"));
 		assertThat(person.getAddress().getTown(), is("Frankfurt"));
 		assertThat(person.getAddress().getCountry(), is("DE"));
-		assertThat(person.getNotes().stream().anyMatch(m -> m.getMessage().equals("Call her back!")), is(true));
-
+		assertThat(person.getNotes().stream().anyMatch(m -> "Call her back!".equals(m.getMessage())), is(true));
 	}
 
 	@Test
