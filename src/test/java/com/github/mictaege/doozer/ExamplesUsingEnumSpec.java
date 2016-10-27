@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 
 
 /** */
-public class ExamplesSpec {
+public class ExamplesUsingEnumSpec {
 
     @Test
     public void shouldMakeASimplePerson() {

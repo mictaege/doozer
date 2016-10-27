@@ -52,21 +52,29 @@ public final class Doozer {
         }
 
         /**
-         * @param declaredField An enum that defines the field of the object to modify. E.g. 'PersonField.firstName'.
+         * @param field An enum that defines the field of the object to modify. E.g. 'PersonField.firstName'.
          *                      Note that name of the enum has to be case-sensitive equal to the objects instance field.
          *                      So if an object 'Person' has a field 'firstName' the enum has to have the name
          *                      'PersonField.firstName' and not 'PersonField.FIRSTNAME', or 'PersonField.firstname' etc.
-         * @param val The value for the field
+         * @param be The value for the field
          * @param <V> The type of the value
          */
-        public <V> void with(final Enum<?> declaredField, final V val) {
-            with(declaredField.name(), val);
+        public <V> void with(final Enum<?> field, final V be) {
+            with(field.name(), be);
         }
 
-        private <V> void with(String fieldName, V val) {
+        /**
+         * @param field A String that defines the field of the object to modify. E.g. 'firstName'.
+         *                      Note that the given name has to be case-sensitive equal to the objects instance field.
+         *                      So if an object 'Person' has a field 'firstName' the given name has to have the name
+         *                      'firstName' and not 'FIRSTNAME', or 'firstname' etc.
+         * @param be The value for the field
+         * @param <V> The type of the value
+         */
+        public <V> void with(String field, V be) {
             try {
-                final Field field = FieldUtils.getField(obj.getClass(), fieldName, true);
-                field.set(obj, val);
+                final Field fieldObj = FieldUtils.getField(obj.getClass(), field, true);
+                fieldObj.set(obj, be);
             } catch (IllegalAccessException e) {
                 throw new IllegalArgumentException(e);
             }
@@ -75,17 +83,25 @@ public final class Doozer {
         /**
          * @see #with(Enum, Object)
          */
-        public <V> void but(final Enum<?> declaredField, final V val) {
-            with(declaredField, val);
+        public <V> void but(final Enum<?> field, final V be) {
+            with(field, be);
+        }
+
+
+        /**
+         * @see #with(String, Object)
+         */
+        public <V> void but(final String field, final V be) {
+            with(field, be);
         }
 
         /**
          * @param method Method reference
-         * @param value The value to be set
+         * @param with The value to be set
          * @param <V> The type of the value
          */
-        public <V> void apply(final BiConsumer<T, V> method, final V value) {
-            method.accept(obj, value);
+        public <V> void apply(final BiConsumer<T, V> method, final V with) {
+            method.accept(obj, with);
         }
 
         /**
