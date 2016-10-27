@@ -52,13 +52,20 @@ public final class Doozer {
         }
 
         /**
-         * @param declaredField The field of the object to modify
+         * @param declaredField An enum that defines the field of the object to modify. E.g. 'PersonField.firstName'.
+         *                      Note that name of the enum has to be case-sensitive equal to the objects instance field.
+         *                      So if an object 'Person' has a field 'firstName' the enum has to have the name
+         *                      'PersonField.firstName' and not 'PersonField.FIRSTNAME', or 'PersonField.firstname' etc.
          * @param val The value for the field
          * @param <V> The type of the value
          */
-        public <V> void with(final DeclaredField<? super T> declaredField, final V val) {
+        public <V> void with(final Enum<?> declaredField, final V val) {
+            with(declaredField.name(), val);
+        }
+
+        private <V> void with(String fieldName, V val) {
             try {
-                final Field field = FieldUtils.getField(obj.getClass(), declaredField.name(), true);
+                final Field field = FieldUtils.getField(obj.getClass(), fieldName, true);
                 field.set(obj, val);
             } catch (IllegalAccessException e) {
                 throw new IllegalArgumentException(e);
@@ -66,16 +73,16 @@ public final class Doozer {
         }
 
         /**
-         * @see #with(DeclaredField, Object)
+         * @see #with(Enum, Object)
          */
-        public <V> void but(final DeclaredField<? super T> declaredField, final V val) {
+        public <V> void but(final Enum<?> declaredField, final V val) {
             with(declaredField, val);
         }
 
         /**
          * @param method Method reference
          * @param value The value to be set
-         * @param <V> The type of teh value
+         * @param <V> The type of the value
          */
         public <V> void apply(final BiConsumer<T, V> method, final V value) {
             method.accept(obj, value);
