@@ -4,7 +4,6 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,18 +21,24 @@ public final class Doozer {
      * @param <T> The type of the object to make
      * @return The object
      */
-    public static <T> T  makeA(final Supplier<T> objSupplier, final Consumer<With<T>>... objModifier) {
+    public static <T> T  makeA(final Supplier<T> objSupplier, final LenientConsumer<With<T>>... objModifier) {
         final T obj = objSupplier.get();
         Stream.of(objModifier).forEach(
-                m -> m.accept(new With<>(obj))
+                m -> {
+                    try {
+                        m.accept(new With<>(obj));
+                    } catch (Exception e) {
+                        throw new IllegalArgumentException(e);
+                    }
+                }
         );
         return obj;
     }
 
     /**
-     * @see #makeA(Supplier, Consumer[])
+     * @see #makeA(Supplier, LenientConsumer[])
      */
-    public static <T> T  makeFrom(final Supplier<T> objSupplier, final Consumer<With<T>>... objModifier) {
+    public static <T> T  makeFrom(final Supplier<T> objSupplier, final LenientConsumer<With<T>>... objModifier) {
         return makeA(objSupplier, objModifier);
     }
 
