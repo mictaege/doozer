@@ -5,8 +5,10 @@ import org.junit.Test;
 import java.util.function.Supplier;
 
 import static com.github.mictaege.doozer.Address.Fields.*;
+import static com.github.mictaege.doozer.DateUtility.asDay;
 import static com.github.mictaege.doozer.Doozer.makeA;
 import static com.github.mictaege.doozer.Doozer.makeFrom;
+import static com.github.mictaege.doozer.Note.Fields.creationDate;
 import static com.github.mictaege.doozer.Note.Fields.message;
 import static com.github.mictaege.doozer.Person.Fields.*;
 import static com.github.mictaege.doozer.Subject.Fields.id;
@@ -41,6 +43,7 @@ public class ExamplesUsingEnumSpec {
                         a -> a.with(town, "Frankfurt"),
                         a -> a.with(country, "DE"))),
                 p -> p.with(notes, asList(makeA(Note::new,
+                        n -> n.with(creationDate, asDay("2016-12-01")),
                         n -> n.with(message, "Call her back!"))))
                 );
 
