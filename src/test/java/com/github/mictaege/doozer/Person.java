@@ -3,7 +3,7 @@ package com.github.mictaege.doozer;
 /** */
 public class Person extends Subject {
 
-    public enum Fields implements DeclaredField<Person> {
+    public enum Fields {
         firstName, lastName, nickName, age, address
     }
 

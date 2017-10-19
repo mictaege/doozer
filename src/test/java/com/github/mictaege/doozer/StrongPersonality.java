@@ -7,7 +7,7 @@ import java.util.UUID;
 /** */
 public final class StrongPersonality {
 
-    public enum Fields implements DeclaredField<StrongPersonality> {
+    public enum Fields {
         id, firstName, lastName, age
     }
 

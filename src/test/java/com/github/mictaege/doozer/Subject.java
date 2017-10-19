@@ -9,7 +9,7 @@ import static java.util.Collections.unmodifiableList;
 /** */
 public abstract class Subject {
 
-    public enum Fields implements DeclaredField<Subject> {
+    public enum Fields {
         id, notes
     }
 
