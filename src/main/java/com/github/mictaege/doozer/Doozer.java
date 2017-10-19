@@ -9,6 +9,8 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import java.lang.reflect.Field;
 import java.util.stream.Stream;
 
+import static java.util.Optional.ofNullable;
+
 /**  It's only meaning of life is to build all kinds of objects as sweet as sugar. */
 public final class Doozer {
 
@@ -85,7 +87,8 @@ public final class Doozer {
          */
         public <V> void with(String field, V be) {
             try {
-                final Field fieldObj = FieldUtils.getField(obj.getClass(), field, true);
+                final Field fieldObj = ofNullable(FieldUtils.getField(obj.getClass(), field, true))
+                        .orElseThrow(() -> new IllegalArgumentException("The field '" + field + "' is missing"));
                 fieldObj.set(obj, be);
             } catch (IllegalAccessException e) {
                 throw new IllegalArgumentException(e);
