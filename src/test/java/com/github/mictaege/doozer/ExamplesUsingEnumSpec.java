@@ -1,11 +1,11 @@
 package com.github.mictaege.doozer;
 
+import com.github.mictaege.lenientfun.LenientSupplier;
 import org.junit.Test;
 
-import java.util.function.Supplier;
+import java.time.LocalDate;
 
 import static com.github.mictaege.doozer.Address.Fields.*;
-import static com.github.mictaege.doozer.DateUtility.asDay;
 import static com.github.mictaege.doozer.Doozer.makeA;
 import static com.github.mictaege.doozer.Doozer.makeFrom;
 import static com.github.mictaege.doozer.Note.Fields.creationDate;
@@ -43,7 +43,7 @@ public class ExamplesUsingEnumSpec {
                         a -> a.with(town, "Frankfurt"),
                         a -> a.with(country, "DE"))),
                 p -> p.with(notes, asList(makeA(Note::new,
-                        n -> n.with(creationDate, asDay("2016-12-01")),
+                        n -> n.with(creationDate, LocalDate.of(2016, 12, 01)),
                         n -> n.with(message, "Call her back!"))))
                 );
 
@@ -61,7 +61,7 @@ public class ExamplesUsingEnumSpec {
 
     @Test
     public void shouldMakePersonsByModifyingATemplate() {
-        final Supplier<Person> personTemplate = () -> makeA(Person::new,
+        final LenientSupplier<Person> personTemplate = () -> makeA(Person::new,
                 p -> p.with(firstName, "Michael"),
                 p -> p.with(lastName, "Kelly"),
                 p -> p.with(nickName, "Mike"),

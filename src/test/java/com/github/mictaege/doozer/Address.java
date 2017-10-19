@@ -3,7 +3,7 @@ package com.github.mictaege.doozer;
 /** */
 public class Address {
 
-    public enum Fields implements DeclaredField<Address> {
+    public enum Fields {
         street, zip, town, country
     }
 

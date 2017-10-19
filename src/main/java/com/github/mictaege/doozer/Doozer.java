@@ -1,10 +1,12 @@
 package com.github.mictaege.doozer;
 
+import com.github.mictaege.lenientfun.FunctionalRuntimeException;
+import com.github.mictaege.lenientfun.LenientBiConsumer;
+import com.github.mictaege.lenientfun.LenientConsumer;
+import com.github.mictaege.lenientfun.LenientSupplier;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.lang.reflect.Field;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**  It's only meaning of life is to build all kinds of objects as sweet as sugar. */
@@ -21,14 +23,19 @@ public final class Doozer {
      * @param <T> The type of the object to make
      * @return The object
      */
-    public static <T> T  makeA(final Supplier<T> objSupplier, final LenientConsumer<With<T>>... objModifier) {
-        final T obj = objSupplier.get();
+    public static <T> T  makeA(final LenientSupplier<T> objSupplier, final LenientConsumer<With<T>>... objModifier) {
+        final T obj;
+        try {
+            obj = objSupplier.get();
+        } catch (final Exception e) {
+            throw new FunctionalRuntimeException("Error during object creation.", e);
+        }
         Stream.of(objModifier).forEach(
                 m -> {
                     try {
                         m.accept(new With<>(obj));
-                    } catch (Exception e) {
-                        throw new IllegalArgumentException(e);
+                    } catch (final Exception e) {
+                        throw new FunctionalRuntimeException("Error during object modification.", e);
                     }
                 }
         );
@@ -36,9 +43,9 @@ public final class Doozer {
     }
 
     /**
-     * @see #makeA(Supplier, LenientConsumer[])
+     * @see #makeA(LenientSupplier, LenientConsumer[])
      */
-    public static <T> T  makeFrom(final Supplier<T> objSupplier, final LenientConsumer<With<T>>... objModifier) {
+    public static <T> T  makeFrom(final LenientSupplier<T> objSupplier, final LenientConsumer<With<T>>... objModifier) {
         return makeA(objSupplier, objModifier);
     }
 
@@ -105,8 +112,12 @@ public final class Doozer {
          * @param with The value to be set
          * @param <V> The type of the value
          */
-        public <V> void apply(final BiConsumer<T, V> method, final V with) {
-            method.accept(obj, with);
+        public <V> void apply(final LenientBiConsumer<T, V> method, final V with) {
+            try {
+                method.accept(obj, with);
+            } catch (final Exception e) {
+                throw new FunctionalRuntimeException(e);
+            }
         }
 
         /**

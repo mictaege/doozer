@@ -3,6 +3,14 @@
 
 [![Apache License 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html) [![Maven Central](https://img.shields.io/maven-central/v/com.github.mictaege/doozer.svg)](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.github.mictaege%22%20AND%20a%3A%22doozer%22) [![Build Status](https://travis-ci.org/mictaege/doozer.svg?branch=master)](https://travis-ci.org/mictaege/doozer) [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=com.github.mictaege.doozer%3Adevelop)](https://sonarcloud.io/dashboard/index/com.github.mictaege.doozer%3Adevelop)
 
+A minimalistic framework that let you create any Java objects with a fluent and readable syntax. Helpful especially in integration and acceptance test scenarios for building complex object trees.
+
+> **Note** that v1.4 comes with some API changes!
+> - The deprecated interface _DeclaredField_ has been removed
+> - _doozer_ now uses the functional interfaces from [lenientfun](https://github.com/mictaege/lenientfun)
+>
+> Both changes may break existing code, but should be easy to fix.
+
 - [doozer](#doozer)
 	- [First glance](#first-glance)
 	- [Overview](#overview)
@@ -19,9 +27,6 @@
 		- [Using objects from 3rd party libraries](#using-objects-from-3rd-party-libraries)
 	- [Further thoughts](#further-thoughts)
 	- [By the way, what does _doozer_ mean?](#by-the-way-what-does-doozer-mean)
-
-
-A minimalistic framework that let you create any Java objects with a fluent and readable syntax. Helpful especially in integration and acceptance test scenarios for building complex object trees.
 
 ## First glance
 
@@ -163,7 +168,7 @@ final Person person = makeA(Person::new,
 
 ### Use one building strategy for a variety of similar objects
 ```Java
-final Supplier<Person> personTemplate = () -> makeA(Person::new,
+final LenientSupplier<Person> personTemplate = () -> makeA(Person::new,
 				p -> p.with(firstName, "Michael"),
 				p -> p.with(lastName, "Kelly"),
 				p -> p.with(nickName, "Mike"),

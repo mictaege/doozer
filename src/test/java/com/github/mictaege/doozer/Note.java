@@ -1,24 +1,24 @@
 package com.github.mictaege.doozer;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /** */
 public class Note {
 
-    public enum Fields implements DeclaredField<Note> {
+    public enum Fields {
         creationDate, message
     }
 
-    private final Date creationDate;
+    private final LocalDate creationDate;
     private String message;
 
     public Note() {
         super();
-        creationDate = new Date();
+        creationDate = LocalDate.now();
         message = "";
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
