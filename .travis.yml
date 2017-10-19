@@ -3,5 +3,10 @@ language: java
 jdk:
   - oraclejdk8
 
+branches:
+  only:
+    - master
+    - develop
+
 script:
   gradle clean test
