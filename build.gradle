@@ -9,7 +9,7 @@ apply plugin: 'signing'
 
 group 'com.github.mictaege'
 archivesBaseName = project.name
-version '1.5-SNAPSHOT'
+version '1.5'
 
 sourceCompatibility = 1.8
 
